@@ -27,7 +27,6 @@ public class LoginServlet extends HttpServlet {
             brugerMap.put("admin", "1234");
 
             servletContext.setAttribute("brugerMap", brugerMap);
-            request.setAttribute();
         }
 
 

@@ -18,13 +18,23 @@ Nu er du på admin siden...
 Du kan se og slette brugere
 
 <br>
-
+<br>
 <c:forEach var="element" items="${applicationScope.brugerMap}">
 
     ${element}
     <br>
 
 </c:forEach>
+
+<br>
+<br>
+    ${requestScope.besked}
+<br>
+<form action="AminServlet" method="post">
+    <label for="fname">Slet bruger:</label><br>
+    <input type="text" id="fname" name="navn"><br>
+    <input type="submit" value="slet">
+</form>
 
 </body>
 </html>
