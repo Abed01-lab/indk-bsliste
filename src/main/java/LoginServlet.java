@@ -8,7 +8,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 
 @WebServlet(name = "LoginServlet", urlPatterns = {"/LoginServlet"})
 public class LoginServlet extends HttpServlet {
@@ -29,6 +31,15 @@ public class LoginServlet extends HttpServlet {
             servletContext.setAttribute("brugerMap", brugerMap);
         }
 
+        if (    ((Set<String>) servletContext.getAttribute("aktiveBruger") == null)   ){
+            Set<String> aktiveBruger = new HashSet<>();
+            servletContext.setAttribute("aktiveBruger", aktiveBruger);
+        }
+
+        if (!(request.getAttribute("besked") == null)){
+            request.getRequestDispatcher("WEB-INF/HuskeListe.jsp").forward(request,response);
+        }
+
 
         if (!((Map<String, String>) servletContext.getAttribute("brugerMap") ).containsKey(navn)){
             //Todo gå til log indside
@@ -47,13 +58,21 @@ public class LoginServlet extends HttpServlet {
                 request.getRequestDispatcher("WEB-INF/admin.jsp").forward(request,response);
             }
 
-            response.getWriter().println("klar til login");
-            request.getRequestDispatcher("WEB-INF/HuskeListe.jsp").forward(request,response);
+            if (  !  ((Set<String>) servletContext.getAttribute("aktiveBruger")).contains(navn)  ){
+
+                ((Set<String>) servletContext.getAttribute("aktiveBruger")).add(navn);
+
+                servletContext.setAttribute("aktivBrugerNavn", navn);
+
+                response.getWriter().println("klar til login");
+                request.getRequestDispatcher("WEB-INF/HuskeListe.jsp").forward(request,response);
+            }
+
         }
 
         //Tilbage til index siden
 
-        request.setAttribute("besked", "dit login var forkert, prøv igen.");
+        request.setAttribute("besked", "dit login var forkert, eller du er allerede logget ind et andet sted");
         request.getRequestDispatcher("index.jsp").forward(request,response);
     }
 
