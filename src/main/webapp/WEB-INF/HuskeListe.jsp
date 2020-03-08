@@ -12,7 +12,7 @@
 </head>
 <body>
 
-Du har nu adgang til din huske liste.
+<h1>Du er nu på din huske liste og er klar til at tilføje emner</h1>
 
 </body>
 </html>

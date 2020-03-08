@@ -1,3 +1,5 @@
+import com.sun.tools.corba.se.idl.StringGen;
+
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -26,6 +28,7 @@ public class LoginServlet extends HttpServlet {
             servletContext.setAttribute("brugerMap", brugerMap);
         }
 
+
         if (!((Map<String, String>) servletContext.getAttribute("brugerMap") ).containsKey(navn)){
             //Todo gå til log indside
 
@@ -35,6 +38,7 @@ public class LoginServlet extends HttpServlet {
         }
 
         if (((Map<String, String>) servletContext.getAttribute("brugerMap") ).get(navn).equalsIgnoreCase(kodeord) ){
+
             //Todo gå til log huskelisten
 
             response.getWriter().println("klar til login");
